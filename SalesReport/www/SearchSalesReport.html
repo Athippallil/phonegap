@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <title id='Description'>Sales Report</title>
+   
+
     <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
     <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
       <script type="text/javascript" src="js/jqxcore.js"></script>
@@ -18,6 +20,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+	
 
 	$("#homeButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' });
 	$("#backButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' });
@@ -28,7 +31,7 @@ $("#submitButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' 
 	$("#jqxdatetimeinput_start").jqxDateTimeInput({
                     width: '150px',
                     height: '25px',
-                    theme: 'metro',
+                    theme: 'darkblue',
                     formatString: "dd-MM-yyyy",
                     animationType: 'fade',
                     readonly: true,
@@ -37,7 +40,7 @@ $("#submitButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' 
 	$("#jqxdatetimeinput_end").jqxDateTimeInput({
                     width: '150px',
                     height: '25px',
-                    theme: 'metro',
+                    theme: 'darkblue',
                     formatString: "dd-MM-yyyy",
                     animationType: 'fade',
                     readonly: true,
@@ -84,7 +87,7 @@ $("#submitButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' 
         });
     </script>
 </head>
-<body class='default'>
+<body class='default' style="font-family: Verdana;">
 	<div id="headwrapper">  
   <div id="fixedheader">  
     <header id="top">  

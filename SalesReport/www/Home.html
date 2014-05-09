@@ -10,41 +10,123 @@
         multiple expanded items. In order to enable this mode, you need to set the 'expandMode'
         property to 'multiple' </title>
     <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="js/styles/jqx.darkblue.css" type="text/css" />
+
     <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/jqxcore.js"></script>
     <script type="text/javascript" src="js/jqxnavigationbar.js"></script>
     <script type="text/javascript" src="js/jqxpanel.js"></script>
+<script type="text/javascript" src="js/jqxbuttons.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
 
-		alert('hghgdready');
+		$("#B1").jqxButton({ width: 300, height: 25});
+		$("#B2").jqxButton({ width: 300, height: 25});	
+		$("#B3").jqxButton({ width: 300, height: 25});
+		$("#B4").jqxButton({ width: 300, height: 25});
+		$("#B5").jqxButton({ width: 300, height: 25});	
+		$("#B6").jqxButton({ width: 300, height: 25});
+		$("#B7").jqxButton({ width: 300, height: 25});
 
+
+		$('#B1').bind('click', function (event) {
+			var link='SearchSalesReport.html';
+            	//$('body').hide().fadeIn('fast');
+
+			$('body').slideUp('fast',function(){
+            	/*
+           	 	When that's done (on the 'callback') send the browser to the link.
+            	*/
+            	window.location.href = link;
+        	}); });
+		$('#B2').bind('click', function (event) {
+			var link='SearchSalesReport.html';
+            	//$('body').hide().fadeIn('fast');
+
+			$('body').slideUp('fast',function(){
+            	/*
+           	 	When that's done (on the 'callback') send the browser to the link.
+            	*/
+            	window.location.href = link;
+        	}); });
+
+$('#B3').bind('click', function (event) {
+			var link='SearchSalesReport.html';
+            	//$('body').hide().fadeIn('fast');
+
+			$('body').slideUp('fast',function(){
+            	/*
+           	 	When that's done (on the 'callback') send the browser to the link.
+            	*/
+            	window.location.href = link;
+        	}); });
+
+$('#B4').bind('click', function (event) {
+			var link='SearchSalesReport.html';
+            	//$('body').hide().fadeIn('fast');
+
+			$('body').slideUp('fast',function(){
+            	/*
+           	 	When that's done (on the 'callback') send the browser to the link.
+            	*/
+            	window.location.href = link;
+        	}); });
+
+$('#B5').bind('click', function (event) {
+			var link='SearchSalesReport.html';
+            	//$('body').hide().fadeIn('fast');
+
+			$('body').slideUp('fast',function(){
+            	/*
+           	 	When that's done (on the 'callback') send the browser to the link.
+            	*/
+            	window.location.href = link;
+        	}); });
+
+$('#B6').bind('click', function (event) {
+			var link='SearchSalesReport.html';
+            	//$('body').hide().fadeIn('fast');
+
+			$('body').slideUp('fast',function(){
+            	/*
+           	 	When that's done (on the 'callback') send the browser to the link.
+            	*/
+            	window.location.href = link;
+        	});
+
+
+			
+			
+
+     		 });
+$('#B7').bind('click', function (event) {
+			var link='SearchSalesReport.html';
+            	//$('body').hide().fadeIn('fast');
+
+			$('body').slideUp('fast',function(){
+            	/*
+           	 	When that's done (on the 'callback') send the browser to the link.
+            	*/
+            	window.location.href = link;
+        	});
+
+
+			
+			
+
+     		 });
             $("#jqxNavigationBar").jqxNavigationBar({ width: 300, expandMode: 'multiple', expandedIndexes: [2, 3]});
-		$("#jqxNavigationBar").jqxNavigationBar('add', 'Header', 'Content');
-		$('#jqxNavigationBar').jqxNavigationBar('insert', 1, 'Header', 'Content'); 
-		$('#jqxNavigationBar').jqxNavigationBar('insert', 1, 'Header', 'Content'); 
-	
-		getIndex('MRN LISTINGS');
+
+
         });
 
-    function getIndex(menuName){
-		alert('Menu-->'+menuName);
-		var index = -1;
-		try{
-		for(var i=0;i<10;i++)
-			{
-			var content = $('#jqxNavigationBar').jqxNavigationBar('getHeaderContentAt', i);
-			alert(content);
-			var n = content.toText().indexOf(menuName);
-			alert(n);
-			}
-		}catch(err){}
-	}
+    
        
     </script>
 </head>
-<body>
-    <div style='width: 300px;align:center'  id='jqxWidget' >
+<body align="center">
+	<div align="center" style='vertical-align:middle'>
+    <div style='width: 300px;align:center;' align="center" id='jqxWidgets' >
         <div id="jqxNavigationBar">
             <div>
                 <div style='margin-top: 2px;'>
@@ -55,11 +137,17 @@
                 </div>
             </div>
             <div>
-                <ul>
-                    <li><a href='polisitng.html'>PO LISTINGS</a></li>
-                    <li><a href='mrnlisting.html'>MRN LISTINGS</a></li>
-                    <li><a href='purchaselisting.html'>PURCHASE LISTINGS</a></li>
-                </ul>
+			
+             		<div style='float: left;margin-bottom:5'>
+                    <input type="button" id="B1" value="PO LISTINGS"/></div><br/>
+
+<div style='float: left;margin-top:5'>
+                    <input type="button" id="B2" value="MRN LISTINGS"/></div><br/>
+
+<div style='float: left;margin-top:5'>
+                    <input type="button" id="B3" value="PURCHASE LISTINGS"/></div>
+
+               
             </div>
             <div>
                 <div style='margin-top: 2px;'>
@@ -70,14 +158,19 @@
                 </div>
             </div>
             <div>
-                <ul>
-                    <li><a href='SearchSalesReport.html'>SALES ORDERS</a></li>
-                    <li><a href='dolisting.html'>DELIVERY NOTES</a></li>
-                    <li><a href='saleslisting.html'>SALES LISTINGS</a></li>
-                    <li><a href='profitreport.html'>PROFIT REPORT</a></li>
-                </ul>
+			<div style='float: left;margin-bottom:5'>
+                    <input type="button" id="B4" value="SALES ORDERS"/></div><br/>
+			<div style='float: left;margin-bottom:5'>
+                    <input type="button" id="B5" value="DELIVERY NOTES"/></div><br/>
+			<div style='float: left;margin-bottom:5'>
+                    <input type="button" id="B6" value="SALES LISTINGS"/></div><br/>
+			<div style='float: left;margin-bottom:5'>
+                    <input type="button" id="B7" value="PROFIT REPORT"/></div><br/>
+
+                
             </div>
         </div>
     </div>
+	</div>
 </body>
 </html>

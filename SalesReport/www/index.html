@@ -1,83 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <meta name="keywords" content="jQuery Accordion, Expander, Toggle Bar, Expander Bar, Navigation Bar, Accordion, jqxNavigationBar, jqxExpander" />
-    <meta name="description" content="jqxNavigationBar has a built-in mode which allows you to have multiple expanded
-        items. In order to enable this mode, you need to set the 'expandMode' property to
-        'multiple'" />
-    <meta charset="utf-8" />
-    <title id='Description'>jqxNavigationBar has a built-in mode which allows you to have
-        multiple expanded items. In order to enable this mode, you need to set the 'expandMode'
-        property to 'multiple' </title>
-    <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
-    <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="js/jqxcore.js"></script>
-    <script type="text/javascript" src="js/jqxnavigationbar.js"></script>
-    <script type="text/javascript" src="js/jqxpanel.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-		alert('hghgdready');
-
-            $("#jqxNavigationBar").jqxNavigationBar({ width: 300, expandMode: 'multiple', expandedIndexes: [2, 3]});
-		$("#jqxNavigationBar").jqxNavigationBar('add', 'Header', 'Content');
-		$('#jqxNavigationBar').jqxNavigationBar('insert', 1, 'Header', 'Content'); 
-		$('#jqxNavigationBar').jqxNavigationBar('insert', 1, 'Header', 'Content'); 
-	
-		getIndex('MRN LISTINGS');
-        });
-
-    function getIndex(menuName){
-		alert('Menu-->'+menuName);
-		var index = -1;
-		try{
-		for(var i=0;i<10;i++)
-			{
-			var content = $('#jqxNavigationBar').jqxNavigationBar('getHeaderContentAt', i);
-			alert(content);
-			var n = content.toText().indexOf(menuName);
-			alert(n);
-			}
-		}catch(err){}
-	}
-       
-    </script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="css/style.css">
+ 
 </head>
 <body>
-    <div style='width: 300px;align:center'  id='jqxWidget' >
-        <div id="jqxNavigationBar">
-            <div>
-                <div style='margin-top: 2px;'>
-                    <div style='float: left;'>
-                        <img alt='Mail' src='images/mailIcon.png' /></div>
-                    <div style='margin-left: 4px; float: left;'>
-                        PURCHASE</div>
-                </div>
-            </div>
-            <div>
-                <ul>
-                    <li><a href='polisitng.html'>PO LISTINGS</a></li>
-                    <li><a href='mrnlisting.html'>MRN LISTINGS</a></li>
-                    <li><a href='purchaselisting.html'>PURCHASE LISTINGS</a></li>
-                </ul>
-            </div>
-            <div>
-                <div style='margin-top: 2px;'>
-                    <div style='float: left;'>
-                        <img alt='Mail' src='images/contactsIcon.png' /></div>
-                    <div style='margin-left: 4px; float: left;'>
-                        SALES</div>
-                </div>
-            </div>
-            <div>
-                <ul>
-                    <li><a href='SearchSalesReport.html'>SALES ORDERS</a></li>
-                    <li><a href='dolisting.html'>DELIVERY NOTES</a></li>
-                    <li><a href='saleslisting.html'>SALES LISTINGS</a></li>
-                    <li><a href='profitreport.html'>PROFIT REPORT</a></li>
-                </ul>
-            </div>
-        </div>
+  <section class="container">
+    <div class="login">
+      <h1>Login to ERP</h1>
+      <form method="post" action="Home.html">
+        <p><input type="text" name="login" value="" placeholder="Username"></p>
+        <p><input type="password" name="password" value="" placeholder="Password"></p>
+        <p class="remember_me">
+          <label>
+            <input type="checkbox" name="remember_me" id="remember_me">
+            Remember me on this computer
+          </label>
+        </p>
+        <p class="submit"><input type="submit" name="commit" value="Login"></p>
+      </form>
     </div>
+
+    <div class="login-help">
+      
+    </div>
+  </section>
+
+  
 </body>
 </html>

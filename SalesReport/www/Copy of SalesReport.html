@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <title id='Description'>Sales Report</title>
-
     <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
-   <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+ <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/jqxcore.js"></script>
     <script type="text/javascript" src="js/jqxdata.js"></script>
     <script type="text/javascript" src="js/jqxbuttons.js"></script>
@@ -101,9 +100,7 @@ function getParameterByName(name) {
 		    columnsreorder: true,
 		    showaggregates: true,
 			showstatusbar: true,
-                statusbarheight: 20,
-		    scrollbarsize:10,
-		    scrollmode:'normal',	
+                statusbarheight: 20,	
 
 
                 columns: [
@@ -155,7 +152,7 @@ function getParameterByName(name) {
         });
     </script>
 </head>
-<body class='default' style="font-family: Verdana;">
+<body class='default'>
 		<div id="headwrapper">  
   <div id="fixedheader">  
     <header id="top">  
@@ -190,12 +187,13 @@ function getParameterByName(name) {
 
 
 
+    <div id='jqxWidget' style="border:0;font-size: 13px; font-family: Verdana; float: left;">
 	
 	<div id='jqxExpander' style="border:0;">
 		<div>Select Columns</div>
 		<div><div style="float: left;border:0;scrolbar:false" id="jqxlistbox"></div></div>
 	</div>
-       <div style='margin-top: 20px;scrollbar:false'>
+       <div style='margin-top: 20px;'>
             <div style='margin-bottom: 10px;margin-top:10px; float: left;'>
                 
 			<div id='print' style='float: left; margin-bottom: 5px;'>
@@ -211,10 +209,9 @@ function getParameterByName(name) {
 
             </div>
         </div>
-	<br/>
-	<br/>
-	<div id="jqxgrid" style="margin-top:20px;scrollbar:false"></div>
+	<div id="jqxgrid" style="margin-top:20px;"></div>
 	
 
+    </div>
 </body>
 </html>
