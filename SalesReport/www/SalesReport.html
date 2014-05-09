@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id='Description'>Sales Report</title>
+    <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
+ <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/jqxcore.js"></script>
+    <script type="text/javascript" src="js/jqxdata.js"></script>
+    <script type="text/javascript" src="js/jqxbuttons.js"></script>
+    <script type="text/javascript" src="js/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="js/jqxlistbox.js"></script>
+    <script type="text/javascript" src="js/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="js/jqxmenu.js"></script>
+    <script type="text/javascript" src="js/jqxgrid.js"></script>
+    <script type="text/javascript" src="js/jqxgrid.filter.js"></script>
+    <script type="text/javascript" src="js/jqxgrid.sort.js"></script>
+	<script type="text/javascript" src="js/jqxgrid.edit.js"></script>
+
+    <script type="text/javascript" src="js/jqxgrid.selection.js"></script>
+	<script type="text/javascript" src="js/jqxgrid.columnsresize.js"></script> 
+<script type="text/javascript" src="js/jqxgrid.columnsreorder.js"></script> 
+
+    <script type="text/javascript" src="js/jqxpanel.js"></script>
+    <script type="text/javascript" src="js/jqxcalendar.js"></script>
+    <script type="text/javascript" src="js/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="js/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="js/globalization/globalize.js"></script>
+	<script type="text/javascript" src="js/jqxdata.export.js"></script> 
+    <script type="text/javascript" src="js/jqxgrid.export.js"></script> 
+    <script type="text/javascript" src="js/jqxgrid.sort.js"></script> 
+   <script type="text/javascript" src="js/jqxgrid.edit.js"></script>
+
+    <script type="text/javascript" src="js/jqxgrid.selection.js"></script>
+ <script type="text/javascript" src="js/jqxexpander.js"></script>
+<script type="text/javascript" src="js/jqxgrid.aggregates.js"></script> 
+
+
+
+    
+
+    
+
+    <script type="text/javascript">
+
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+        $(document).ready(function () {
+
+	$("#jqxExpander").jqxExpander({width:400, expanded:false});
+	 $("#excelExport").jqxButton({ width: '150'});
+
+	$("#homeButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' });
+	$("#backButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' });
+
+ 	 $("#print").jqxButton({ width: '150'});
+
+	$("#excelExport").click(function() {
+    		$("#jqxgrid").jqxGrid('exportdata', 'xls', 'SalesReport');
+	});
+
+	var startDateStr = getParameterByName("jqxdatetimeinput_start");
+	var endDateStr = getParameterByName("jqxdatetimeinput_end");
+
+	var  queryString = 'ArgDateFrom='+startDateStr+'&ArgDateTo='+endDateStr;
+
+		$.get( "http://econceptme.dns2go.com:81/insightsales/service.asmx/GetSalesListingJSon?"+queryString+"&$callback=responsejsonp", function( data ) {
+	
+	var textNodes = $(data).contents().filter(function() {
+  	return this.nodeType == 1;
+	})
+  	replyData  = textNodes.text();
+	var jsonObj = JSON.parse(replyData);
+
+            // prepare the data
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'TRNNO', type: 'int' },
+                    { name: 'NAME', type: 'string' },
+                    { name: 'SALESMANNAME', type: 'string' },
+                    { name: 'NETAMOUNT', type: 'int' }
+                ],
+                id: 'TRNNO',
+                localdata: jsonObj 
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+
+            $("#jqxgrid").jqxGrid(
+            {
+                width: 850,
+                source: dataAdapter,
+                columnsresize: true,
+		    showfilterrow: true,
+		    filterable: true,
+		    sortable:true,
+		    editable: false,
+		    columnsreorder: true,
+		    showaggregates: true,
+			showstatusbar: true,
+                statusbarheight: 20,	
+
+
+                columns: [
+                  { text: 'TRANSACTION NO', datafield: 'TRNNO', width: 250 },
+                  { text: 'NAME', datafield: 'NAME', width: 250 },
+                  { text: 'SALESMAN NAME', datafield: 'SALESMANNAME', width: 180 },
+                  { text: 'NET AMOUNT', datafield: 'NETAMOUNT', width: 120,cellsalign: 'right', aggregates: ['sum']  }
+              ]
+            });
+		});
+
+		$("#print").jqxButton();
+         
+            $("#print").click(function () {
+                var gridContent = $("#jqxgrid").jqxGrid('exportdata', 'html');
+                var newWindow = window.open('', '', 'width=800, height=500'),
+                document = newWindow.document.open(),
+                pageContent =
+                    '<!DOCTYPE html>\n' +
+                    '<html>\n' +
+                    '<head>\n' +
+                    '<meta charset="utf-8" />\n' +
+                    '<title>ERP Report</title>\n' +
+                    '</head>\n' +
+                    '<body>\n' + gridContent + '\n</body>\n</html>';
+                document.write(pageContent);
+                document.close();
+                newWindow.print();
+            });
+
+		var listSource = [
+			 { label: 'NAME', value: 'NAME', checked: true },
+			 { label: 'SALESMAN NAME', value: 'SALESMANNAME', checked: true }, 
+			{ label: 'NET AMOUNT', value: 'NETAMOUNT', checked: true }];
+
+            $("#jqxlistbox").jqxListBox({ source: listSource, width: 350, autoHeight: true,  checkboxes: true });
+            $("#jqxlistbox").on('checkChange', function (event) {
+                $("#jqxgrid").jqxGrid('beginupdate');
+                if (event.args.checked) {
+                    $("#jqxgrid").jqxGrid('showcolumn', event.args.value);
+                }
+                else {
+                    $("#jqxgrid").jqxGrid('hidecolumn', event.args.value);
+                }
+                $("#jqxgrid").jqxGrid('endupdate');
+            });
+
+
+        });
+    </script>
+</head>
+<body class='default'>
+		<div id="headwrapper">  
+  <div id="fixedheader">  
+    <header id="top">  
+	<div id="logo"> 
+	
+	<table width="100%">
+	<tr>
+	<td>
+     
+
+	<div id='homeButton' style='float: left; margin-bottom: 5px;'>
+    	<img style='float: left; margin: 2px;' src='./home2.png' />
+      <div style='float: left; margin: 3px;'>
+        <a href="Home.html">Home</a></div>
+	</div>
+	</td>
+	<td>
+	<div id='heading' style='width:10px;float:center'><h3>ERP&nbsp;REPORTS</h3></div>
+	</td>
+	<td>
+	
+	<div id='backButton' style='float: right; margin-bottom: 5px;'>
+    	<img style='float: right; margin: 2px;' src='./back.png' />
+      <div style='float: right; margin: 3px;'>
+        <a href="SearchSalesReport.html">Back</a></div>
+	</td></tr></table>
+	</div>
+	</div>
+	</header>  
+  </div> <!-- /end #fixedheader -->  
+</div>
+
+
+
+    <div id='jqxWidget' style="border:0;font-size: 13px; font-family: Verdana; float: left;">
+	
+	<div id='jqxExpander' style="border:0;">
+		<div>Select Columns</div>
+		<div><div style="float: left;border:0;scrolbar:false" id="jqxlistbox"></div></div>
+	</div>
+       <div style='margin-top: 20px;'>
+            <div style='margin-bottom: 10px;margin-top:10px; float: left;'>
+                
+			<div id='print' style='float: left; margin-bottom: 5px;'>
+    				<img style='float: left; margin: 2px;' src='./print.png' />
+      			<div style='float: left; margin: 3px;'>Print</div>
+			</div>
+			<div id='excelExport' style='float: left; margin-bottom: 5px;'>
+    				<img style='float: left; margin: 2px;' src='./excel.png' />
+      			<div style='float: left; margin: 3px;'>Export</div>
+			</div>
+
+
+
+            </div>
+        </div>
+	<div id="jqxgrid" style="margin-top:20px;"></div>
+	
+
+    </div>
+</body>
+</html>
