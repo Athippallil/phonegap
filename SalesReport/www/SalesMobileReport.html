@@ -3,14 +3,11 @@
 <head>
     <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
     <meta name="msapplication-tap-highlight" content="no" />
-    <title id='Description'>JavaScript DataGrid Filtering and Sorting - Mobile Example
+    <title id='Description'>Sales Report
     </title>
     <link rel="stylesheet" href="styles/demo.css" type="text/css" />
     <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="js/styles/jqx.windowsphone.css" type="text/css" />
-    <link rel="stylesheet" href="js/styles/jqx.blackberry.css" type="text/css" />
-    <link rel="stylesheet" href="js/styles/jqx.mobile.css" type="text/css" />
-    <link rel="stylesheet" href="js/styles/jqx.android.css" type="text/css" />
+
     <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/jqxcore.js"></script>
     <script type="text/javascript" src="js/jqxdata.js"></script>
@@ -149,7 +146,7 @@ function getParameterByName(name) {
 		    showaggregates:true,
 		    showstatusbar:true,
 		    statusbarheight:30,
-		    
+		    theme:theme,
                
                 columns: [
                   { text: 'TRANSACTION NO', datafield: 'TRNNO', width: 150 },
@@ -164,7 +161,7 @@ function getParameterByName(name) {
         });
     </script>
 </head>
-<body class='default'>
+<body class='default' bgcolor="#B3B3B3">
     <div id='jqxMenu' style='margin-bottom:10px'>
        	<div id='homeButton' style='float: left; margin-bottom: 2.5px;margin-top: 2.5px;'>
     		<img style='float: left; margin: 2px;' src='./home2.png' />
