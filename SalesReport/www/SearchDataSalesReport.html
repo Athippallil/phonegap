@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id='Description'>Sales Report</title>
+   
+
+    <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
+     <link rel="stylesheet" href="js/styles/jqx.arctic.css" media="screen" />
+
+    <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+      <script type="text/javascript" src="js/jqxcore.js"></script>
+    <script type="text/javascript" src="js/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="js/jqxcalendar.js"></script>
+    <script type="text/javascript" src="js/jqxtooltip.js"></script>
+    <script type="text/javascript" src="js/globalization/globalize.js"></script>
+    <script type="text/javascript" src="js/jqxdata.js"></script>
+    <script type="text/javascript" src="js/jqxbuttons.js"></script>
+<script type="text/javascript" src="js/jqxmenu.js"></script>
+
+    
+
+    
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+	
+
+	$("#homeButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' });
+	$("#backButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' });
+	$("#jqxMenu").jqxMenu({ width: '100%', height: '40px', theme: 'arctic' });
+
+$("#submitButton").jqxButton({ width: '80px', height: '25px', theme: 'darkblue' });
+
+
+	$("#jqxdatetimeinput_start").jqxDateTimeInput({
+                    width: '150px',
+                    height: '25px',
+                    theme: 'darkblue',
+                    formatString: "dd-MM-yyyy",
+                    animationType: 'fade',
+                    readonly: true,
+                    culture: 'en-EN'
+                });
+	$("#jqxdatetimeinput_end").jqxDateTimeInput({
+                    width: '150px',
+                    height: '25px',
+                    theme: 'darkblue',
+                    formatString: "dd-MM-yyyy",
+                    animationType: 'fade',
+                    readonly: true,
+                    culture: 'en-EN'
+                });
+
+	$("#submitButton").click(function() {
+		var startDate = $("#jqxdatetimeinput_start").jqxDateTimeInput('getDate');
+		if(startDate ==null)
+		{
+		alert("Please select a valid start date.");
+		return;
+		}
+		//alert('StartDate-->'+startDate);
+		var formattedDate = $.jqx.dataFormat.formatdate(startDate, 'dd-MM-yyyy');
+		//alert('StartDate-->'+formattedDate );
+
+		var endDate = $("#jqxdatetimeinput_end").jqxDateTimeInput('getDate');
+		if(endDate ==null)
+		{
+		alert("Please select a valid end date.");
+		return;
+		}
+
+		if(endDate <= startDate )
+		{
+		alert("End date should be after the start date.");
+		return;
+		}
+
+		//alert('StartDate-->'+startDate);
+		var formattedEndDate = $.jqx.dataFormat.formatdate(endDate, 'dd-MM-yyyy');
+		//alert('EndDate-->'+formattedEndDate );
+		var urlStr = 'SalesDataReport.html?formDate='+formattedDate+'&endDate='+formattedEndDate;
+		$('form')[0].setAttribute('action', urlStr );
+		$('form')[0].setAttribute('action', urlStr );
+		$("#searchForm").submit();
+	
+	});
+
+
+	
+
+        });
+    </script>
+</head>
+<body bgcolor="#B3B3B3" style="font-family: Verdana;">
+
+<div id='jqxMenu' style='margin-bottom:50px'>
+       <div id='homeButton' style='float: left; margin-bottom: 2.5px;margin-top: 2.5px;'>
+    	<img style='float: left; margin: 2px;' src='./home2.png' />
+      <div style='float: left; margin: 3px;'>
+        <a href="Home.html">Home</a></div>
+	</div>
+
+	
+		<b>ERP REPORTS</b>
+	
+
+
+	 <div id='backButton' style='float: right; margin-bottom: 2.5px;margin-top: 2.5px;'>
+    	<img style='float: left; margin: 2px;' src='./back.png' />
+      <div style='float: left; margin: 3px;'>
+        <a href="Home.html">Back</a></div>
+	</div>
+
+
+	</div>
+
+<!--	<div id="headwrapper">  
+  <div id="fixedheader">  
+    <header id="top">  
+	<div id="logo"> 
+	
+	<table width="100%">
+	<tr>
+	<td>
+     
+
+	<div id='homeButton' style='float: left; margin-bottom: 5px;'>
+    	<img style='float: left; margin: 2px;' src='./home2.png' />
+      <div style='float: left; margin: 3px;'>
+        <a href="Home.html">Home</a></div>
+	</div>
+	</td>
+	<td>
+	<div id='heading' style='width:10px;float:center'><h3>ERP&nbsp;REPORTS</h3></div>
+	</td>
+	<td>
+	
+	<div id='backButton' style='float: right; margin-bottom: 5px;'>
+    	<img style='float: right; margin: 2px;' src='./back.png' />
+      <div style='float: right; margin: 3px;'>
+        <a href="Home.html">Back</a></div>
+	</td></tr></table>
+	</div>
+	</div>
+	</header>  
+  </div> 
+</div> -->
+	<form id="searchForm" action="SalesDataReport.html">
+    <div id='jqxWidget' style='float: center; margin-top: 5px;' align="center">
+		<div>
+            <table>
+                <tr>
+                    <td>Start Date</td>
+                    <td>
+                        <div id='jqxdatetimeinput_start'></div>
+                        <!--<input id='startDate' type='text' name='startDate' value='$startDate' />--></td>
+                </tr>
+                <tr>
+                    <td>End Date</td>
+                    <td>
+                        <div id='jqxdatetimeinput_end'></div>
+                        <!--<input id='endDate' type='text' name='endDate' value='$endDate' />--></td>
+                </tr>
+		    <tr>
+			<td colspan="2">
+		<div id='submitButton' style='float: right; margin-bottom: 5px;'>
+		      <div style='float: left; margin: 3px;'>Search</div>
+	</div></td>
+		    </tr>
+            </table>
+		</div>
+        </div>
+	</form>
+
+    </div>
+</body>
+</html>

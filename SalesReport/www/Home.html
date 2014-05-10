@@ -10,16 +10,21 @@
         multiple expanded items. In order to enable this mode, you need to set the 'expandMode'
         property to 'multiple' </title>
     <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="js/styles/jqx.darkblue.css" type="text/css" />
+     <link rel="stylesheet" href="js/styles/jqx.arctic.css" media="screen" />
 
     <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+<script src="jquery.mobile-1.2.0.js"></script>
     <script type="text/javascript" src="js/jqxcore.js"></script>
     <script type="text/javascript" src="js/jqxnavigationbar.js"></script>
     <script type="text/javascript" src="js/jqxpanel.js"></script>
 <script type="text/javascript" src="js/jqxbuttons.js"></script>
+<script type="text/javascript" src="js/jqxmenu.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+		$("#homeButton").jqxButton({ width: '80px', height: '25px', theme: 'arctic' });
+		$("#logoutButton").jqxButton({ width: '80px', height: '25px', theme: 'arctic' });
 
+		 $("#jqxMenu").jqxMenu({ width: '100%', height: '40px', theme: 'arctic' });
 		$("#B1").jqxButton({ width: 300, height: 25});
 		$("#B2").jqxButton({ width: 300, height: 25});	
 		$("#B3").jqxButton({ width: 300, height: 25});
@@ -30,7 +35,7 @@
 
 
 		$('#B1').bind('click', function (event) {
-			var link='SearchSalesReport.html';
+			var link='SearchDataSalesReport.html';
             	//$('body').hide().fadeIn('fast');
 
 			$('body').slideUp('fast',function(){
@@ -51,7 +56,7 @@
         	}); });
 
 $('#B3').bind('click', function (event) {
-			var link='SearchSalesReport.html';
+			var link='SearchDataSalesReport.html';
             	//$('body').hide().fadeIn('fast');
 
 			$('body').slideUp('fast',function(){
@@ -62,7 +67,7 @@ $('#B3').bind('click', function (event) {
         	}); });
 
 $('#B4').bind('click', function (event) {
-			var link='SearchSalesReport.html';
+			var link='SearchDataSalesReport.html';
             	//$('body').hide().fadeIn('fast');
 
 			$('body').slideUp('fast',function(){
@@ -73,7 +78,7 @@ $('#B4').bind('click', function (event) {
         	}); });
 
 $('#B5').bind('click', function (event) {
-			var link='SearchSalesReport.html';
+			var link='SearchDataSalesReport.html';
             	//$('body').hide().fadeIn('fast');
 
 			$('body').slideUp('fast',function(){
@@ -84,7 +89,7 @@ $('#B5').bind('click', function (event) {
         	}); });
 
 $('#B6').bind('click', function (event) {
-			var link='SearchSalesReport.html';
+			var link='SearchDataSalesReport.html';
             	//$('body').hide().fadeIn('fast');
 
 			$('body').slideUp('fast',function(){
@@ -100,7 +105,7 @@ $('#B6').bind('click', function (event) {
 
      		 });
 $('#B7').bind('click', function (event) {
-			var link='SearchSalesReport.html';
+			var link='SearchDataSalesReport.html';
             	//$('body').hide().fadeIn('fast');
 
 			$('body').slideUp('fast',function(){
@@ -124,7 +129,39 @@ $('#B7').bind('click', function (event) {
        
     </script>
 </head>
-<body align="center">
+<body bgcolor="#B3B3B3">
+	 <div id='jqxMenu' style='margin-bottom:50px'>
+       <div id='homeButton' style='float: left; margin-bottom: 2.5px;margin-top: 2.5px;'>
+    	<img style='float: left; margin: 2px;' src='./home2.png' />
+      <div style='float: left; margin: 3px;'>
+        <a href="Home.html">Home</a></div>
+	</div>
+
+	
+		<b>ERP REPORTS</b>
+	
+
+
+	 <div id='logoutButton' style='float: right; margin-bottom: 2.5px;margin-top: 2.5px;'>
+    	<img style='float: left; margin: 2px;' src='./logout.png' />
+      <div style='float: left; margin: 3px;'>
+        <a href="index.html">Logout</a></div>
+	</div>
+
+
+	</div>
+	
+<!-- <div id="headwrapper" style='margin: 10px;border-style:solid;border-color:#98bf21;'>  
+  <div id="fixedheader">  
+    <header id="top">  
+	<div id="logo"> 
+	<a href="index.html" data-icon="delete">Cancel</a>
+	<h1>ERP REPORTS</h1>
+	<a href="index.html" data-icon="check">Save</a>
+	</div>
+	</header>  
+  </div> 
+</div>-->
 	<div align="center" style='vertical-align:middle'>
     <div style='width: 300px;align:center;' align="center" id='jqxWidgets' >
         <div id="jqxNavigationBar">
@@ -172,5 +209,6 @@ $('#B7').bind('click', function (event) {
         </div>
     </div>
 	</div>
+</div>
 </body>
 </html>
