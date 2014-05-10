@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <meta name="msapplication-tap-highlight" content="no" />
+    <title id='Description'>JavaScript DataGrid Filtering and Sorting - Mobile Example
+    </title>
+    <link rel="stylesheet" href="styles/demo.css" type="text/css" />
+    <link rel="stylesheet" href="js/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="js/styles/jqx.windowsphone.css" type="text/css" />
+    <link rel="stylesheet" href="js/styles/jqx.blackberry.css" type="text/css" />
+    <link rel="stylesheet" href="js/styles/jqx.mobile.css" type="text/css" />
+    <link rel="stylesheet" href="js/styles/jqx.android.css" type="text/css" />
+    <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/jqxcore.js"></script>
+    <script type="text/javascript" src="js/jqxdata.js"></script>
+    <script type="text/javascript" src="js/jqxbuttons.js"></script>
+    <script type="text/javascript" src="js/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="js/jqxlistbox.js"></script>
+    <script type="text/javascript" src="js/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="js/jqxmenu.js"></script>
+    <script type="text/javascript" src="js/jqxgrid.js"></script>
+    <script type="text/javascript" src="js/jqxcalendar.js"></script>
+    <script type="text/javascript" src="js/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="js/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="js/globalization/globalize.js"></script>
+	<script type="text/javascript" src="js/jqxdata.export.js"></script> 
+    <script type="text/javascript" src="js/jqxgrid.export.js"></script> 
+    <script type="text/javascript" src="js/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="js/jqxgrid.selection.js"></script>
+ <script type="text/javascript" src="js/jqxexpander.js"></script>
+
+    <script type="text/javascript" src="js/jqxgrid.sort.js"></script>
+    <script type="text/javascript" src="js/jqxgrid.filter.js"></script>
+    <script type="text/javascript" src="js/jqxpanel.js"></script>
+    <script type="text/javascript" src="simulator.js"></script>
+	<script type="text/javascript" src="js/jqxgrid.columnsresize.js"></script> 
+<script type="text/javascript" src="js/jqxgrid.columnsreorder.js"></script> 
+    <script type="text/javascript" src="generatedata.js"></script>
+<script type="text/javascript" src="js/jqxgrid.aggregates.js"></script> 
+
+    <script type="text/javascript">
+
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+        $(document).ready(function () {
+	
+ 
+	 $("#excelExport").jqxButton({ width: '70',height:'20'});
+	$("#excelExport").click(function() {
+    		$("#grid").jqxGrid('exportdata', 'xls', 'SalesReport');
+	});
+
+ 	$("#print").jqxButton({ width: '70',height:'20'});
+	$("#print").click(function () {
+                var gridContent = $("#grid").jqxGrid('exportdata', 'html');
+                var newWindow = window.open('', '', 'width=800, height=500'),
+                document = newWindow.document.open(),
+                pageContent =
+                    '<!DOCTYPE html>\n' +
+                    '<html>\n' +
+                    '<head>\n' +
+                    '<meta charset="utf-8" />\n' +
+                    '<title>ERP Report</title>\n' +
+                    '</head>\n' +
+                    '<body>\n' + gridContent + '\n</body>\n</html>';
+                document.write(pageContent);
+                document.close();
+                newWindow.print();
+            });
+
+
+	$("#homeButton").jqxButton({ width: '80px', height: '25px', theme: 'arctic' });
+	$("#backButton").jqxButton({ width: '80px', height: '25px', theme: 'arctic' });
+		 $("#jqxMenu").jqxMenu({ width: '100%', height: '40px', theme: 'arctic' });
+	$("#jqxExpander").jqxExpander({width:400, expanded:false});
+	
+	var listSource = [
+			 { label: 'NAME', value: 'NAME', checked: true },
+			 { label: 'SALESMAN NAME', value: 'SALESMANNAME', checked: true }, 
+			{ label: 'NET AMOUNT', value: 'NETAMOUNT', checked: true }];
+
+            $("#jqxlistbox").jqxListBox({ source: listSource, width: 350, autoHeight: true,  checkboxes: true });
+            $("#jqxlistbox").on('checkChange', function (event) {
+                $("#grid").jqxGrid('beginupdate');
+                if (event.args.checked) {
+                    $("#grid").jqxGrid('showcolumn', event.args.value);
+                }
+                else {
+                    $("#grid").jqxGrid('hidecolumn', event.args.value);
+                }
+                $("#grid").jqxGrid('endupdate');
+            });
+
+
+
+
+            // prepares the simulator. 
+            var theme = prepareSimulator("grid");
+
+         //   var data = generatedata(50);
+           	var startDateStr = getParameterByName("jqxdatetimeinput_start");
+	var endDateStr = getParameterByName("jqxdatetimeinput_end");
+
+	var  queryString = 'ArgDateFrom='+startDateStr+'&ArgDateTo='+endDateStr;
+
+		$.get( "http://econceptme.dns2go.com:81/insightsales/service.asmx/GetSalesListingJSon?"+queryString+"&$callback=responsejsonp", function( data ) {
+	
+	var textNodes = $(data).contents().filter(function() {
+  	return this.nodeType == 1;
+	})
+  	replyData  = textNodes.text();
+	var jsonObj = JSON.parse(replyData);
+
+            // prepare the data
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'TRNNO', type: 'int' },
+                    { name: 'NAME', type: 'string' },
+                    { name: 'SALESMANNAME', type: 'string' },
+                    { name: 'NETAMOUNT', type: 'int' }
+                ],
+                id: 'TRNNO',
+                localdata: jsonObj 
+            };
+
+
+            var dataAdapter = new $.jqx.dataAdapter(source);
+
+            $("#grid").jqxGrid(
+            {
+                width: '100%',
+                height: '100%',
+                source: dataAdapter,
+                showfilterrow: true,
+                filterable: true,
+                sortable: true,
+                columnsheight: 40,
+                columnsmenuwidth: 24,
+		    columnsreorder:true,
+			columnsresize:true,
+                rowsheight: 34,
+                filterrowheight: 40,
+		    showaggregates:true,
+		    showstatusbar:true,
+		    statusbarheight:30,
+		    
+               
+                columns: [
+                  { text: 'TRANSACTION NO', datafield: 'TRNNO', width: 150 },
+                  { text: 'NAME', datafield: 'NAME', width: 200 },
+                  { text: 'SALESMAN NAME', datafield: 'SALESMANNAME', width: 200 },
+                  { text: 'NET AMOUNT', datafield: 'NETAMOUNT', width: 150,cellsalign: 'right', aggregates: ['sum']  }
+              ]
+
+            });
+		});
+        //    initSimulator("grid");
+        });
+    </script>
+</head>
+<body class='default'>
+    <div id='jqxMenu' style='margin-bottom:10px'>
+       	<div id='homeButton' style='float: left; margin-bottom: 2.5px;margin-top: 2.5px;'>
+    		<img style='float: left; margin: 2px;' src='./home2.png' />
+	      <div style='float: left; margin: 3px;'><a href="Home.html">Home</a></div>
+		</div>
+
+	
+		<b>ERP REPORTS</b>
+	
+
+
+	 <div id='backButton' style='float: right; margin-bottom: 2.5px;margin-top: 2.5px;'>
+    		<img style='float: left; margin: 2px;' src='./back.png' />
+	      <div style='float: left; margin: 3px;'><a href="SearchMobileDataSalesReport.html">Back</a></div>
+	</div>
+
+
+	</div>
+	
+		
+		<div style='position:relative;left:0px;top:5px,margin-bottom:30'>
+			<div id='jqxExpander' >
+				<div>Select Columns</div>
+				<div><div style="float: left;border:0;scrolbar:false" id="jqxlistbox"></div></div>
+			</div>
+			<div align="right" style='position:absolute;right:0px;top:0px'>
+		
+				<div id='print' style='position:absolute;right:5px;top:0px' >
+    					<img  src='./print.png' />
+      				<div style='float:right' align="right">Print</div>
+				</div>
+				<div id='excelExport' style='position:absolute;right:100px;top:0px'>
+    					<img style='float:left'  src='./excel.png' />
+      				<div style='float:right' align="left">Export</div>
+				</div>
+			</div>
+		</div>
+	
+<p/>
+    <div id="demoContainers" class="device-mobile-tablets">
+        <div id="containers" class="device-mobile-tablet-containers">
+            <div style="border: 0;margin-bottom:5;margin-top:10" id='grid'>
+            </div>
+        </div>
+    </div>
+     
+</body>
+</html>
